@@ -279,3 +279,12 @@ class LinkedBST(AbstractCollection):
         :return:
         :rtype:
         """
+        
+    def demo_bst(self, path):
+        """
+        Demonstration of efficiency binary search tree for the search tasks.
+        :param path:
+        :type path:
+        :return:
+        :rtype:
+        """
