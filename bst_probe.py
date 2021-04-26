@@ -1,5 +1,5 @@
 """
-File: testbst.py
+File: bst_probe.py
 
 A tester program for binary search trees.
 """
