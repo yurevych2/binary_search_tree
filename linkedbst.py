@@ -240,7 +240,7 @@ class LinkedBST(AbstractCollection):
             :return:
             '''
 
-    def isBalanced(self):
+    def is_balanced(self):
         '''
         Return True if tree is balanced
         :return:
