@@ -7,6 +7,7 @@ from random import randint
 import timeit
 from collections import deque
 from sys import setrecursionlimit
+import random
 
 from abstractcollection import AbstractCollection
 from bstnode import BSTNode
@@ -383,11 +384,14 @@ class LinkedBST(AbstractCollection):
         words = []
         self._root = None
         self.height = 0
+        i = 0
         with open(path, 'r') as file:
             for line in file.readlines():
                 for word in line.split():
                     self.add(word)
                     words.append(word)
+                    i += 1
+                    print(i)
 
                 if len(words) > 10000:
                     print('10000 words')
@@ -398,37 +402,45 @@ class LinkedBST(AbstractCollection):
         rand_word = words[randint(0, 9999)]
 
         start_time = timeit.default_timer()
-        sorted_words.index(rand_word)
+        for word in words:
+            sorted_words.index(word)
         end_time = timeit.default_timer()
         elapsed_time = end_time - start_time
         print(f'list.index() in an unsorted list: {elapsed_time}\n')
 
         start_time = timeit.default_timer()
-        bfs(self, rand_word)
+        for word in words:
+            self.find(word)
         end_time = timeit.default_timer()
         elapsed_time = end_time - start_time
         print(f'BFS in LinkedBST (words added in a row): {elapsed_time}\n')
 
         self._root = None
         self.height = 0
-        for word in sorted_words:
-            self.add(word)
+        for word in random.sample(words, len(words)):
+            if self._root is None:
+                self._root = BSTNode(word)
+            else:
+                self.add(word)
         start_time = timeit.default_timer()
-        bfs(self, rand_word)
+        for word in words:
+            self.find(word)
+
         end_time = timeit.default_timer()
         elapsed_time = end_time - start_time
         print(f'BFS in LinkedBST (words added from a sorted list): {elapsed_time}\n')
 
         self.rebalance()
         start_time = timeit.default_timer()
-        bfs(self, rand_word)
+        for word in words:
+            self.find(word)
         end_time = timeit.default_timer()
         elapsed_time = end_time - start_time
         print(f'BFS in LinkedBST (rebalanced tree): {elapsed_time}\n')
 
 
 if __name__ == '__main__':
-    setrecursionlimit(10000)
+    setrecursionlimit(100000)
     tree = LinkedBST()
 
     tree.demo_bst('words.txt')
